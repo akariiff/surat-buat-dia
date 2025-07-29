@@ -162,13 +162,24 @@
       });
     }
 
-    $(document).ready(function () {
-      $('#messageState').change(function () {
-        const msg = $('.message'), heart = $('.heart');
-        if (this.checked) msg.removeClass('closeNor').addClass('openNor'), heart.removeClass('closeHer').addClass('openHer');
-        else msg.removeClass('openNor').addClass('closeNor'), heart.removeClass('openHer').addClass('closeHer');
-      });
-    });
+   $(document).ready(function () {
+  const bgm = document.getElementById('bgm');
+
+  $('#messageState').change(function () {
+    const msg = $('.message'), heart = $('.heart');
+
+    if (this.checked) {
+      // Mulai musik setelah interaksi (klik heart)
+      bgm.play().catch(() => {});
+      msg.removeClass('closeNor').addClass('openNor');
+      heart.removeClass('closeHer').addClass('openHer');
+    } else {
+      msg.removeClass('openNor').addClass('closeNor');
+      heart.removeClass('openHer').addClass('closeHer');
+    }
+  });
+});
+
   </script>
 </body>
 </html>
