@@ -162,15 +162,12 @@
       });
     }
 
-   $(document).ready(function () {
-  const bgm = document.getElementById('bgm');
-
+ $(document).ready(function () {
   $('#messageState').change(function () {
     const msg = $('.message'), heart = $('.heart');
 
     if (this.checked) {
-      // Mulai musik setelah interaksi (klik heart)
-      bgm.play().catch(() => {});
+      bgm.play().catch(() => {}); // musik play setelah klik heart
       msg.removeClass('closeNor').addClass('openNor');
       heart.removeClass('closeHer').addClass('openHer');
     } else {
@@ -179,6 +176,7 @@
     }
   });
 });
+
 
   </script>
 </body>
