@@ -1,52 +1,52 @@
-// Slide interaktif & musik sinkron
-let currentSlide = 0;
-const slides = document.querySelectorAll('.slide');
+const slideEl = document.getElementById('slides');
 const bgm = document.getElementById('bgm');
+let currentSlide = 0;
 
-function showSlide(index) {
-  slides.forEach((slide, i) => {
-    slide.style.display = i === index ? 'block' : 'none';
-  });
-  currentSlide = index;
-  handleAudio(index);
+function updateSlide() {
+  slideEl.style.transform = `translateX(-${currentSlide * 100}vw)`;
+
+  // Musik mati di slide video (slide ke-2)
+  if (currentSlide === 1) {
+    bgm.pause();
+  } else {
+    bgm.play().catch(() => {});
+  }
+
+  // Load bunga di slide 3
+  if (currentSlide === 2) {
+    $('#flowersContent').load('https://akariiff.github.io/flowers-for-her/', function (resp, status) {
+      if (status !== 'success') {
+        $('#flowersContent').html('<p>Gagal memuat bunga. Coba buka ulang halaman.</p>');
+      }
+    });
+  }
 }
 
 function nextSlide() {
-  if (currentSlide < slides.length - 1) {
-    showSlide(currentSlide + 1);
+  if (currentSlide < 2) {
+    currentSlide++;
+    updateSlide();
   }
 }
 
 function prevSlide() {
   if (currentSlide > 0) {
-    showSlide(currentSlide - 1);
+    currentSlide--;
+    updateSlide();
   }
 }
 
-function handleAudio(index) {
-  if (index === 1) {
-    bgm.pause();
-  } else {
-    bgm.play().catch(() => {});
-  }
-}
-
-// Interaksi buka surat
 $(document).ready(function () {
   $('#messageState').change(function () {
-    if ($(this).is(':checked')) {
-      $('.message').removeClass('closed').addClass('open');
+    const msg = $('.message'), heart = $('.heart');
+
+    if (this.checked) {
+      bgm.play().catch(() => {}); // Play musik setelah interaksi
+      msg.removeClass('closeNor').addClass('openNor');
+      heart.removeClass('closeHer').addClass('openHer');
     } else {
-      $('.message').removeClass('open').addClass('closed');
+      msg.removeClass('openNor').addClass('closeNor');
+      heart.removeClass('openHer').addClass('closeHer');
     }
   });
-});
-
-// Init
-window.addEventListener('load', () => {
-  showSlide(0);
-
-  document.body.addEventListener('click', () => {
-    bgm.play().catch(() => {});
-  }, { once: true });
 });
