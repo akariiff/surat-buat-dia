@@ -1,3 +1,4 @@
+// Slide interaktif & musik sinkron
 let currentSlide = 0;
 const slides = document.querySelectorAll('.slide');
 const bgm = document.getElementById('bgm');
@@ -29,6 +30,17 @@ function handleAudio(index) {
     bgm.play().catch(() => {});
   }
 }
+
+// Interaksi buka surat
+$(document).ready(function () {
+  $('#messageState').change(function () {
+    if ($(this).is(':checked')) {
+      $('.message').removeClass('closed').addClass('open');
+    } else {
+      $('.message').removeClass('open').addClass('closed');
+    }
+  });
+});
 
 // Init
 window.addEventListener('load', () => {
