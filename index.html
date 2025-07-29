@@ -1,70 +1,36 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Surat Valentine</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Quicksand&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="valentine-confession.css" />
-  <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <audio id="bg-music" src="audio/john-mayer.mp3" loop></audio>
 
-  <!-- Slides -->
-  <div id="slides" class="slides">
-    <!-- Slide 1: Surat -->
-    <div class="slide slide1">
-      <p class="instruction">tekan iniii ➜ lalu klik lanjut buat swipe ke kanan</p>
-      <div class="container">
-        <input id="messageState" type="checkbox" style="display:none" />
-        <label for="messageState">
-          <div class="heart">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Love_Heart_SVG.svg" />
-          </div>
-        </label>
-        <div class="message closed">
-          <h1 style="font-family: Cinzel, serif;">for u who i love the most</h1>
-          <p>
-            &emsp; haiii mischaa, sebenernya tuh aku ngga sekolah juga alasannya lagi nyiapin ini tauu wkwkwkwkw, baca baik baik yaa<br><br>
-            &emsp; mischa, aku tau kamu pasti sebenernya kesel dan muak sama apa yang aku lakuin akhir akhir ini, aku pas udah waras langsung nonjok diri aku kok hehe, untuk yg terbaru soal adik kelas, aku ga ada ngomong ke dia kok, karena kalau gitu berarti aku ga percaya sama kamu, yg repost juga itu aku juga lagi ga waras dan aku langsung nonjok kok, suer. Maaf ya karena aku masih bersikap kekanak kanakan, aku bakal lebih dewasa pokoknya, aku bakal bikin bukan cuma aku yg nyaman pas sama kamu, tapi kamu juga ngerasain hal spesial dari aku, love you mischaa
-          </p>
-          <div class="sincere">
-            <p><strong>dari Arip</strong></p>
-            <p>someone who love you the most</p>
-          </div>
-        </div>
+  <div class="slides">
+    <section class="slide" id="slide1">
+      <h1>Untuk Kamu</h1>
+      <p>Terima kasih sudah hadir dalam hidupku. Surat ini hanya sepotong kecil dari perasaanku. Selamat Hari Valentine ❤️</p>
+      <button onclick="nextSlide()">Lanjut</button>
+    </section>
+
+    <section class="slide" id="slide2">
+      <h1>Pesan Lewat Video</h1>
+      <div class="video-container">
+        <iframe id="yt-video" width="560" height="315" src="https://www.youtube.com/embed/WFiGgM8OdPk?enablejsapi=1" frameborder="0" allowfullscreen></iframe>
       </div>
-    </div>
+      <button onclick="nextSlide()">Lanjut</button>
+    </section>
 
-    <!-- Slide 2: Video -->
-    <div class="slide slide2">
-      <h2>🎥 Ini buat kamu</h2>
-      <iframe src="https://www.youtube.com/embed/xTZeM9EJlMA" allowfullscreen></iframe>
-    </div>
-
-    <!-- Slide 3: Flowers -->
-    <div class="slide slide3">
-      <h2 style="margin-bottom: 10px;">💐 Dari Arip buat Mischaa</h2>
-      <div id="flowersContent">
-        <p>Loading konten bunga...</p>
-      </div>
-    </div>
+    <section class="slide" id="slide3">
+      <h1>Ini Bungamu 🌸</h1>
+      <iframe src="https://akariiff.github.io/bunga-buat-dia" width="100%" height="400px" frameborder="0"></iframe>
+      <button onclick="restartSlides()">Ulangi dari Awal</button>
+    </section>
   </div>
 
-  <!-- Navigasi -->
-  <div class="nav-buttons">
-    <button class="btn" onclick="prevSlide()">⬅️ Kembali</button>
-    <button class="btn" onclick="nextSlide()">Lanjut ➡️</button>
-  </div>
-
-  <!-- Musik -->
-  <audio id="bgm" autoplay loop>
-    <source src="https://archive.org/download/jm2023-10-03.EJL95/18%20You're%20Gonna%20Live%20Forever%20in%20Me.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-
-  <!-- Script -->
   <script src="valentine-confession.js"></script>
 </body>
 </html>
