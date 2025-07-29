@@ -5,56 +5,168 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Surat Valentine</title>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Quicksand&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
   <link rel="stylesheet" href="valentine-confession.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Quicksand', sans-serif; overflow: hidden; }
+    .slides {
+      display: flex;
+      width: 300vw;
+      height: 100vh;
+      transition: transform 0.8s ease-in-out;
+    }
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      flex-shrink: 0;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .slide1 { background: #fce4ec; }
+    .slide2 { background: #000; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .slide3 { background: #fff; }
+
+    .container {
+      position: relative;
+      height: 100%;
+    }
+
+    .nav-buttons {
+      position: fixed;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      margin: 5px;
+      background: hotpink;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    iframe {
+      max-width: 90vw;
+      max-height: 70vh;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    }
+
+    .instruction {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 1.2rem;
+      color: rgba(255, 20, 147, 0.7);
+    }
+  </style>
 </head>
 <body>
 
-  <p class="instruction">tekan iniii</p>
-
-  <div class="container">
-    <input id="messageState" type="checkbox" style="display:none" />
-    <label for="messageState">
-      <div class="heart">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Love_Heart_SVG.svg" />
+  <div id="slides" class="slides">
+    <!-- Slide 1: Surat -->
+    <div class="slide slide1">
+      <p class="instruction">tekan iniii ➜ lalu klik lanjut buat swipe ke kanan</p>
+      <div class="container">
+        <input id="messageState" type="checkbox" style="display:none" />
+        <label for="messageState">
+          <div class="heart">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Love_Heart_SVG.svg" />
+          </div>
+        </label>
+        <div class="message closed">
+          <h1 style="font-family: Cinzel, serif;">for u who i love the most</h1>
+          <p>
+            &emsp; haiii mischaa, sebenernya tuh aku ngga sekolah juga alasannya lagi nyiapin ini tauu wkwkwkwkw, baca baik baik yaa<br><br>
+            &emsp; mischa, aku tau kamu pasti sebenernya kesel dan muak sama apa yang aku lakuin akhir akhir ini, aku pas udah waras langsung nonjok diri aku kok hehe, untuk yg terbaru soal adik kelas, aku ga ada ngomong ke dia kok, karena kalau gitu berarti aku ga percaya sama kamu, yg repost juga itu aku juga lagi ga waras dan aku langsung nonjok kok, suer. Maaf ya karena aku masih bersikap kekanak kanakan, aku bakal lebih dewasa pokoknya, aku bakal bikin bukan cuma aku yg nyaman pas sama kamu, tapi kamu juga ngerasain hal spesial dari aku, love you mischaa
+          </p>
+          <div class="sincere">
+            <p><strong>dari Arip</strong></p>
+            <p>someone who love you the most</p>
+          </div>
+        </div>
       </div>
-    </label>
+    </div>
 
-    <div class="message closed">
-      <h1 style="font-family: Cinzel, serif;">for u who i love the most</h1>
-      <p>
-        &emsp; haiii mischaa, sebenernya tuh aku ngga sekolah juga alasannya lagi nyiapin ini tauu wkwkwkwkw, baca baik baik yaa<br><br>
+    <!-- Slide 2: Video -->
+    <div class="slide slide2">
+      <h2>🎥 Ini buat kamu</h2>
+      <iframe src="https://www.youtube.com/embed/xTZeM9EJlMA" allowfullscreen></iframe>
+    </div>
 
-        &emsp; mischa, aku tau kamu pasti sebenernya kesel dan muak sama apa yang aku lakuin akhir akhir ini, aku pas udah waras langsung nonjok diri aku kok hehe, untuk yg terbaru soal adik kelas, aku ga ada ngomong ke dia kok, karena kalau gitu berarti aku ga percaya sama kamu, yg repost juga itu aku juga lagi ga waras dan aku langsung nonjok kok, suer. Maaf ya karena aku masih bersikap kekanak kanakan, aku bakal lebih dewasa pokoknya, aku bakal bikin bukan cuma aku yg nyaman pas sama kamu, tapi kamu juga ngerasain hal spesial dari aku, love you mischaa
-      </p>
-      <div class="sincere">
-        <p><strong>dari Arip</strong></p>
-        <p>someone who love you the most</p>
+    <!-- Slide 3: Flowers (repo kamu) -->
+    <div class="slide slide3">
+      <h2 style="margin-bottom: 10px;">💐 Dari Arip buat Mischaa</h2>
+      <div id="flowersContent">
+        <p>Loading konten bunga...</p>
       </div>
     </div>
   </div>
 
+  <!-- Navigasi -->
+  <div class="nav-buttons">
+    <button class="btn" onclick="prevSlide()">⬅️ Kembali</button>
+    <button class="btn" onclick="nextSlide()">Lanjut ➡️</button>
+  </div>
+
+  <!-- Musik -->
+  <audio id="bgm" autoplay loop>
+    <source src="https://dl.dropboxusercontent.com/scl/fi/fqjs2gmhxqd6npv5cn4wi/John-Mayer-You-re-Gonna-Live-Forever-In-Me.mp3?rlkey=w2tf7pvz0i4rq7cdrlx9oohpv&dl=0" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
   <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
   <script>
-    $(document).ready(function () {
-      const checkbox = $('#messageState');
-      const message = $('.message');
-      const heart = $('.heart');
+    let currentSlide = 0;
+    const slideEl = document.getElementById('slides');
+    const bgm = document.getElementById('bgm');
 
-      checkbox.change(function () {
-        if (this.checked) {
-          message.removeClass('closeNor').addClass('openNor');
-          heart.removeClass('closeHer').addClass('openHer');
-        } else {
-          message.removeClass('openNor').addClass('closeNor');
-          heart.removeClass('openHer').addClass('closeHer');
+    function updateSlide() {
+      slideEl.style.transform = `translateX(-${currentSlide * 100}vw)`;
+
+      // Play/pause music tergantung slide
+      if (currentSlide === 1) {
+        bgm.pause();
+      } else {
+        bgm.play().catch(() => {});
+      }
+
+      if (currentSlide === 2) loadFlowersRepo();
+    }
+
+    function nextSlide() {
+      if (currentSlide < 2) {
+        currentSlide++;
+        updateSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    function loadFlowersRepo() {
+      $('#flowersContent').load('https://akariiff.github.io/flowers-for-her/', function (resp, status) {
+        if (status !== 'success') {
+          $('#flowersContent').html('<p>Gagal memuat bunga. Coba buka ulang halaman.</p>');
         }
+      });
+    }
+
+    $(document).ready(function () {
+      $('#messageState').change(function () {
+        const msg = $('.message'), heart = $('.heart');
+        if (this.checked) msg.removeClass('closeNor').addClass('openNor'), heart.removeClass('closeHer').addClass('openHer');
+        else msg.removeClass('openNor').addClass('closeNor'), heart.removeClass('openHer').addClass('closeHer');
       });
     });
   </script>
