@@ -1,52 +1,65 @@
-const slideEl = document.getElementById('slides');
-const bgm = document.getElementById('bgm');
 let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const bgMusic = document.getElementById('bg-music');
+const ytPlayer = document.getElementById('yt-video');
 
-function updateSlide() {
-  slideEl.style.transform = `translateX(-${currentSlide * 100}vw)`;
+function showSlide(index) {
+  slides.forEach((slide, i) => {
+    slide.style.display = i === index ? 'block' : 'none';
+  });
 
-  // Musik mati di slide video (slide ke-2)
-  if (currentSlide === 1) {
-    bgm.pause();
-  } else {
-    bgm.play().catch(() => {});
-  }
-
-  // Load bunga di slide 3
-  if (currentSlide === 2) {
-    $('#flowersContent').load('https://akariiff.github.io/flowers-for-her/', function (resp, status) {
-      if (status !== 'success') {
-        $('#flowersContent').html('<p>Gagal memuat bunga. Coba buka ulang halaman.</p>');
-      }
-    });
-  }
+  currentSlide = index;
+  handleMusicAndVideo(index);
 }
 
 function nextSlide() {
-  if (currentSlide < 2) {
-    currentSlide++;
-    updateSlide();
+  if (currentSlide < slides.length - 1) {
+    showSlide(currentSlide + 1);
   }
 }
 
-function prevSlide() {
-  if (currentSlide > 0) {
-    currentSlide--;
-    updateSlide();
+function restartSlides() {
+  showSlide(0);
+}
+
+function handleMusicAndVideo(index) {
+  if (index === 0 || index === 2) {
+    bgMusic.play();
+  } else {
+    bgMusic.pause();
   }
 }
 
-$(document).ready(function () {
-  $('#messageState').change(function () {
-    const msg = $('.message'), heart = $('.heart');
-
-    if (this.checked) {
-      bgm.play().catch(() => {}); // Play musik setelah interaksi
-      msg.removeClass('closeNor').addClass('openNor');
-      heart.removeClass('closeHer').addClass('openHer');
-    } else {
-      msg.removeClass('openNor').addClass('closeNor');
-      heart.removeClass('openHer').addClass('closeHer');
+function onYouTubeIframeAPIReady() {
+  window.player = new YT.Player('yt-video', {
+    events: {
+      'onStateChange': onPlayerStateChange
     }
   });
-});
+}
+
+function onPlayerStateChange(event) {
+  if (event.data === YT.PlayerState.PLAYING) {
+    bgMusic.pause();
+  } else if (event.data === YT.PlayerState.ENDED || event.data === YT.PlayerState.PAUSED) {
+    if (currentSlide === 2 || currentSlide === 0) {
+      bgMusic.play();
+    }
+  }
+}
+
+// Initial setup
+window.onload = function () {
+  showSlide(0);
+
+  document.body.addEventListener('click', () => {
+    // User gesture to allow audio play
+    bgMusic.play().catch(() => {});
+  }, { once: true });
+
+  // Load YouTube Iframe API
+  const tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  const firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+};
